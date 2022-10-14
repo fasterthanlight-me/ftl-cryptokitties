@@ -31,3 +31,4 @@
 .env
 .ENV
 .idea
+.DS_Store

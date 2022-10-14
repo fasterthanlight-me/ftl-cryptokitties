@@ -1,6 +1,6 @@
 class Api::CryptoKittiesController < ApplicationController
   def index
-    @kitties = CryptoKitty.page(page_params).per(per_page_params)
+    @kitties = CryptoKitty.page(page_params).per(per_page_params).order(sort_by_params)
     render json: { pagination_info: pagination_info, cats: @kitties }, status: :ok
   end
 
@@ -22,6 +22,13 @@ class Api::CryptoKittiesController < ApplicationController
 
   def per_page_params
     params[:per_page].to_i.zero? ? 50 : params[:per_page]
+  end
+
+  def sort_by_params
+    by = params[:sort_by].present? ? params[:sort_by] : 'id'
+    dir = params[:sort_dir].present? ? params[:sort_dir] : 'asc'
+
+    "#{by} #{dir}"
   end
 
   def pagination_info
