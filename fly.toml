@@ -1,4 +1,4 @@
-# fly.toml file generated for ftl-cryptokitties on 2022-10-14T16:01:43+02:00
+# fly.toml file generated for ftl-cryptokitties on 2022-10-14T18:37:18+02:00
 
 app = "ftl-cryptokitties"
 kill_signal = "SIGINT"
@@ -6,9 +6,18 @@ kill_timeout = 5
 processes = []
 
 [build]
-  image = "flyio/hellofly:latest"
+  [build.args]
+    BUNDLER_VERSION = "2.3.16"
+    NODE_VERSION = "16"
+    RUBY_VERSION = "3.1.2"
+    BUILD_COMMAND = "bin/rails fly:build"
+    SERVER_COMMAND = "bin/rails fly:server"
+
+[deploy]
+  release_command = "bin/rails fly:release"
 
 [env]
+  PORT = "8080"
 
 [experimental]
   allowed_public_ports = []
@@ -39,3 +48,7 @@ processes = []
     interval = "15s"
     restart_limit = 0
     timeout = "2s"
+
+[[statics]]
+  guest_path = "/app/public"
+  url_prefix = "/"
