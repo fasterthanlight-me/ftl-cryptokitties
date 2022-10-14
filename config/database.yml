@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: ftl_cryptokitties_production
-  username: ftl_cryptokitties
-  password: <%= ENV["FTL_CRYPTOKITTIES_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
