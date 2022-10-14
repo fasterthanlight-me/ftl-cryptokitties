@@ -1,0 +1,2 @@
+class CryptoKitty < ApplicationRecord
+end
